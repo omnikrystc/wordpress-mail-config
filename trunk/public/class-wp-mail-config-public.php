@@ -100,4 +100,33 @@ class Wp_Mail_Config_Public {
 
 	}
 
+	/**
+	 * Set the mail from email address
+	 *
+	 * @since     1.0.0
+	 * @return    string    From email address for emails sent out
+	 */
+	public function wp_mail_from( $original_email_address ) {
+		return 'no-reply@prevueinc.com';
+	}
+	
+	/**
+	 * Set the mail from name
+	 *
+	 * @since     1.0.0
+	 * @return    string    From name for emails sent out
+	 */
+	public function wp_mail_from_name( $original_email_from ) {
+		return 'Prevue, Inc';
+	}
+	
+	/**
+	 * Set the sender to the from in emails we send out
+	 *
+	 * @since     1.0.0
+	 */
+	public function phpmailer_init( $phpmailer ) {
+		$phpmailer->Sender = $phpmailer->From;
+	}
+	
 }

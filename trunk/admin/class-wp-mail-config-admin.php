@@ -100,4 +100,29 @@ class Wp_Mail_Config_Admin {
 
 	}
 
+	/**
+	 * Add a submenu to the Settings menu
+	 *
+	 * @since    1.0.0
+	 */
+	public function admin_menu() {
+	
+		add_options_page(
+		'Mail Config',
+		'Mail Config',
+		'administrator',
+		'mail_config_options',
+		'mail_config_options'
+				);
+	
+	}
+	
+	public function mail_config_options() {
+	
+	}
+	
+	public function register_settings() {
+	
+	}
+	
 }

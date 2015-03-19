@@ -154,7 +154,8 @@ class Wp_Mail_Config {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
+		
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'admin_menu');
 	}
 
 	/**
@@ -171,6 +172,10 @@ class Wp_Mail_Config {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
+		$this->loader->add_filter( 'wp_mail_from', $plugin_public, 'okbones_wp_mail_from' );
+		$this->loader->add_filter( 'wp_mail_from_name',$plugin_public, 'okbones_wp_mail_from_name' );
+		$this->loader->add_action( 'phpmailer_init', $plugin_public, 'okbones_phpmailer_init' );
+		
 	}
 
 	/**
