@@ -107,7 +107,7 @@ class Wp_Mail_Config_Public {
 	 * @return    string    From email address for emails sent out
 	 */
 	public function wp_mail_from( $original_email_address ) {
-		return 'no-reply@prevueinc.com';
+		return $this->get_option('from_address', $original_email_address);
 	}
 	
 	/**
@@ -117,7 +117,7 @@ class Wp_Mail_Config_Public {
 	 * @return    string    From name for emails sent out
 	 */
 	public function wp_mail_from_name( $original_email_from ) {
-		return 'Prevue, Inc';
+		return $this->get_option('from_name', $original_email_from);
 	}
 	
 	/**
@@ -126,7 +126,58 @@ class Wp_Mail_Config_Public {
 	 * @since     1.0.0
 	 */
 	public function phpmailer_init( $phpmailer ) {
-		$phpmailer->Sender = $phpmailer->From;
+		
+		$options = $this->get_options();
+		
+		if( $this->has_option($options, 'from_address') ) {
+			$phpmailer->From = $options['from_address'];
+		}
+
+		if( $this->has_option($options, 'from_name') ) {
+			$phpmailer->FromName = $options['from_name'];
+		}
+
+/*
+		if( $this->has_option($options, 'sender_address') ) {
+			$phpmailer->Sender = $options['sender_address'];
+		}
+		if( $this->has_option($options, 'hostname') ) {
+			$phpmailer->Hostname = $options['hostname'];
+		}
+
+		if( $this->has_option($options, 'host') 
+				&& $this->has_option($options, 'port') ) {
+			$phpmailer->Host = $options['host'];
+			$phpmailer->Port = $options['port'];
+			$phpmailer->Mailer = 'smtp';
+			//$phpmailer->SMTPSecure = 'tls';
+			$phpmailer->SMTPDebug = 2;
+			if( $this->has_option($options, 'username') 
+					&& $this->has_option($options, 'password') ) {
+				$phpmailer->Username = $options['username'];
+				$phpmailer->Password = $options['password'];
+				$phpmailer->SMTPAuth = true;
+			}
+		}
+*/		
+
+	}
+
+	private function has_option( $options, $name ) {
+		return ( isset($options[$name]) && strlen($options[$name]) > 0 );
+	}
+
+	private function get_option( $name, $default = '' ) {
+		$options = $this->get_options();
+		$value = $default;
+		if( $this->has_option( $options, $name ) ) {
+			$value = $options[$name];
+		}
+		return $value;
+	}
+	
+	private function get_options() {
+		return get_option('wp_mail_config_options');
 	}
 	
 }
