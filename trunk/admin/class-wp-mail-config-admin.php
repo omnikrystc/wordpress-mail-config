@@ -236,7 +236,7 @@ class Wp_Mail_Config_Admin {
 						__( 'Name to use for the from field.', 'wp_mail_config' ),
 				)
 		);
-
+/*
 		add_settings_field(
 				'sender_address',
 				__( 'Sender Address', 'wp_mail_config' ),
@@ -302,7 +302,7 @@ class Wp_Mail_Config_Admin {
 						__( 'Password to use (SMTP, optional).', 'wp_mail_config' ),
 				)
 		);
-		
+*/		
 		// register the fields with WordPress
 		register_setting(
 			'wp_mail_config_options',

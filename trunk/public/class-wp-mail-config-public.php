@@ -131,6 +131,7 @@ class Wp_Mail_Config_Public {
 		
 		if( $this->has_option($options, 'from_address') ) {
 			$phpmailer->From = $options['from_address'];
+			$phpmailer->Sender = $options['from_address'];
 		}
 
 		if( $this->has_option($options, 'from_name') ) {
